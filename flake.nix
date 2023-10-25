@@ -8,18 +8,16 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        protonmail-bridge-patched = (import ./pkgs/protonmail-bridge) { inherit pkgs; };
       in
       {
-
         formatter = pkgs.nixpkgs-fmt;
         packages.default = pkgs.buildEnv {
           name = "nixpkgs-edge";
-          paths = # with pkgs;
-            [
-              protonmail-bridge-patched
-            ];
+          paths = [
 
+            (pkgs.callPackage ./pkgs/protonmail-bridge { })
+
+          ];
         };
       }
 
