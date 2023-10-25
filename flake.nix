@@ -14,7 +14,7 @@
             owner = "ProtonMail";
             repo = "proton-bridge";
             rev = "v${version}";
-            hash = "sha256-18fcbgdpl0fma864qkx2v8pvgwnjjzjq7xxh9q279dqhm4l1ynqf";
+            hash = "sha256-DlsfKKkQt3QETrD3g+WX0vK3L9qiT0wMUtUBettbzKE=";
           };
           vendorHash = pkgs.lib.fakeSha256;
         });
