@@ -1,5 +1,5 @@
 {
-  description = "protonmail-bridge updated ahead of nixpkgs";
+  description = "edge-shaper: nixpkgs edge package collection";
 
   nixConfig.extra-substituters = [ https://aarch64-darwin.cachix.org ];
   nixConfig.extra-trusted-public-keys = "aarch64-darwin.cachix.org-1:mEz8A1jcJveehs/ZbZUEjXZ65Aukk9bg2kmb0zL9XDA=";
