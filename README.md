@@ -13,7 +13,7 @@ Those come in parallel: PRs are not merged immediately; that's the reason this r
 
 ### Temporary
 
-Should the lag of a a given `nixpkgs` package cease to exist, the corresponding receipt will be removed from this repo. No more lags? The repo will be ditched alltogether (archived).
+Should the lag of a a given package cease to exist, the corresponding receipt will be removed from this repo. No more lags? The repo will be ditched alltogether (archived).
 
 ## Installation
 
