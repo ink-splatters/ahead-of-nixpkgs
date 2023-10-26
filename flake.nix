@@ -14,12 +14,9 @@
         packages.default = pkgs.buildEnv {
           name = "nixpkgs-edge";
           paths = [
-
             (pkgs.callPackage ./pkgs/protonmail-bridge { })
-
           ];
         };
       }
-
     );
 }
