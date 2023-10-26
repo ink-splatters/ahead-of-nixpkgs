@@ -33,5 +33,6 @@ TODO
 
 # License
 
-[MIT](LICENSE).
+[MIT](LICENSE)
+
 Note: nixpkgs license [caveats](https://github.com/NixOS/nixpkgs#license) apply to this project as well.
