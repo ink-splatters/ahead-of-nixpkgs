@@ -13,7 +13,7 @@ Those come in parallel: PRs are not merged immediately; that's the reason this r
 
 ### Temporary
 
-Should the lag of a a given package cease to exist, the corresponding receipt will be removed from this repo. No more lags? The repo will be ditched alltogether (archived).
+Should the lag with upstream cease to exist, for a given nixpkgs package, the corresponding receipt will be removed from this repo.
 
 ## Installation
 
@@ -24,9 +24,14 @@ nix profile install github:ink-splatters/edge-shaper#latest
 
 ```
 
-### Packages
+## Packages
 
-
-### proton-bridge
-
+Name | nixpkgs version |---|upstream version
+:---: | :---: | :---:  | :---:
+__protonmail-bridge__|[3.5.1](https://github.com/NixOS/nixpkgs/commit/6318c126bf4f3a9293d1cc9ca55ff7cc340329af)| ⬆️ | [3.5.4](https://github.com/ProtonMail/proton-bridge/releases/tag/v3.5.4)
 TODO
+
+# License
+
+[MIT](LICENSE).
+Note: nixpkgs license [caveats](https://github.com/NixOS/nixpkgs#license) apply to this project as well.
