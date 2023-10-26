@@ -20,7 +20,7 @@ Should the lag with upstream cease to exist, for a given nixpkgs package, the co
 using `nix profile`:
 
 ```shell
-nix profile install github:ink-splatters/edge-sharper
+nix profile install github:ink-splatters/edge-sharper --accept-flake-config
 
 ```
 
