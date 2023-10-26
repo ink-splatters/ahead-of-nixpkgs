@@ -9,7 +9,7 @@ let
     sha256 = "sha256-DlsfKKkQt3QETrD3g+WX0vK3L9qiT0wMUtUBettbzKE=";
   };
 in
-(pkgs.protonmail-bridge.override {
+pkgs.protonmail-bridge.override {
   buildGoModule = args: pkgs.buildGoModule (args // {
     vendorHash = "sha256-U+ezv3f3c5GH9eTd05/nWVFMnwhizaAMjTCn9KGX1c8=";
     inherit src version;
@@ -23,4 +23,4 @@ in
         "-X ${constants}.FullAppName=ProtonMailBridge" # Should be "Proton Mail Bridge", but quoting doesn't seems to work in nix's ldflags
       ];
   });
-})
+}

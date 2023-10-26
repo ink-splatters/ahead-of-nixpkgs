@@ -1,13 +1,40 @@
 {
   description = "edge-shaper: nixpkgs edge package collection";
 
-  nixConfig.extra-substituters = [ https://aarch64-darwin.cachix.org ];
-  nixConfig.extra-trusted-public-keys = "aarch64-darwin.cachix.org-1:mEz8A1jcJveehs/ZbZUEjXZ65Aukk9bg2kmb0zL9XDA=";
+  nixConfig = {
+    extra-substituters = [ https://aarch64-darwin.cachix.org https://nix-community.cachix.org ];
+    extra-trusted-public-keys = "aarch64-darwin.cachix.org-1:mEz8A1jcJveehs/ZbZUEjXZ65Aukk9bg2kmb0zL9XDA= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs=";
+  };
 
-  outputs = { self, nixpkgs, flake-utils }:
+  inputs = {
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    flake-utils.url = "github:numtide/flake-utils";
+  };
+
+  outputs = { self, nixpkgs, flake-utils, fenix }:
     flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
+        let
+          pkgs = import nixpkgs {
+
+            inherit system;
+            overlays = [
+              (final: prev: {
+                rustPlatform =
+                  let
+                    toolchain = fenix.packages.${system}.minimal.toolchain;
+                  in (prev.makeRustPlatform {
+                      cargo = toolchain;
+                      rustc = toolchain;
+                  });
+              })
+            ];
+          };
       in
       {
         formatter = pkgs.nixpkgs-fmt;
@@ -15,6 +42,7 @@
           name = "nixpkgs-edge";
           paths = [
             (pkgs.callPackage ./pkgs/protonmail-bridge { })
+            (pkgs.callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; })
           ];
         };
       }
