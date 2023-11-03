@@ -1,12 +1,12 @@
 { pkgs }:
 # https://github.com/NixOS/nixpkgs/issues/86349#issuecomment-912636683
 let
-  version = "3.5.4";
+  version = "3.6.1";
   src = pkgs.fetchFromGitHub {
     owner = "ProtonMail";
     repo = "proton-bridge";
     rev = "v${version}";
-    sha256 = "sha256-DlsfKKkQt3QETrD3g+WX0vK3L9qiT0wMUtUBettbzKE=";
+    sha256 = "sha256-1Dkw30WW7bCf89I+HUAvkfmlBbl+TcOVmAfBIFnTExE=";
   };
 in
 pkgs.protonmail-bridge.override {
