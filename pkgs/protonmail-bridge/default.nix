@@ -11,7 +11,7 @@ let
 in
 pkgs.protonmail-bridge.override {
   buildGoModule = args: pkgs.buildGoModule (args // {
-    vendorHash = "sha256-U+ezv3f3c5GH9eTd05/nWVFMnwhizaAMjTCn9KGX1c8=";
+    vendorHash = "sha256-1mBcYVmVLTFVyYU9QuJz1JoR0wAIREC0cCQZbHMdgZU=";
     inherit src version;
     # TODO: by some reason ldflags needs to be overriden as well, otherwise it gets evaluated with old version
     ldflags =
