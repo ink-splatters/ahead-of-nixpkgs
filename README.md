@@ -28,7 +28,6 @@ nix profile install github:ink-splatters/edge-sharper --accept-flake-config
 
 name | nixpkgs version |---|upstream version |mods
 :---: | :---: | :---:  | :---:  | :---:
-__protonmail-bridge__|[3.5.1](https://github.com/NixOS/nixpkgs/commit/6318c126bf4f3a9293d1cc9ca55ff7cc340329af)| ⬆️ | [3.6.1](https://github.com/ProtonMail/proton-bridge/commit/248fbf5e33edd623f4d44b319dff4927d63a8d50)|
 __ripgrep__|[13.0.0](https://github.com/BurntSushi/ripgrep/commit/af6b6c543b224d348a8876f0c06245d9ea7929c5)| ⬆️ |[2023-10-10+master.7099e17](https://github.com/BurntSushi/ripgrep/commit/7099e174acbcbd940f57e4ab4913fee4040c826e)| `--withSIMD --withPCRE2`
 
 # License

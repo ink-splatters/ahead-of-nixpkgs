@@ -41,7 +41,6 @@
         packages.default = pkgs.buildEnv {
           name = "nixpkgs-edge";
           paths = [
-            (pkgs.callPackage ./pkgs/protonmail-bridge { })
             (pkgs.callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; })
           ];
         };
