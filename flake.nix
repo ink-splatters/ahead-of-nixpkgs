@@ -42,6 +42,7 @@
           name = "nixpkgs-edge";
           paths = [
             (pkgs.callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; })
+            (pkgs.callPackage ./pkgs/micromamba {} )
           ];
         };
       }

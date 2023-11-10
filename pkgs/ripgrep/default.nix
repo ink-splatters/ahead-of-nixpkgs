@@ -1,12 +1,11 @@
 { pkgs
 , lib
-, fetchFromGitHub
 , withPCRE2
 , withSIMD
 }:
 let
   version = "2023-10-10+master.7099e174acbcbd940f57e4ab4913fee4040c826e";
-  src = fetchFromGitHub {
+  src = pkgs.fetchFromGitHub {
     owner = "BurntSushi";
     repo = "ripgrep";
     rev = "7099e174acbcbd940f57e4ab4913fee4040c826e";
@@ -15,7 +14,7 @@ let
 
   cargoHash = "sha256-JzLi2D3AommseDKSgU2h1n23GWgWGf1N4ltVohgYHsM=";
 in
-pkgs.ripgrep.override {
+  pkgs.ripgrep.override {
     rustPlatform.buildRustPackage = args: pkgs.rustPlatform.buildRustPackage (args // {
 
     RUSTFLAGS = "-C codegen-units=1 -C embed-bitcode=yes -C lto=fat -C linker=clang -C link-arg=-fuse-ld=lld";
