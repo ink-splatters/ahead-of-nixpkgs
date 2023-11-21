@@ -14,8 +14,8 @@ let
 
   cargoHash = "sha256-JzLi2D3AommseDKSgU2h1n23GWgWGf1N4ltVohgYHsM=";
 in
-  pkgs.ripgrep.override {
-    rustPlatform.buildRustPackage = args: pkgs.rustPlatform.buildRustPackage (args // {
+pkgs.ripgrep.override {
+  rustPlatform.buildRustPackage = args: pkgs.rustPlatform.buildRustPackage (args // {
 
     RUSTFLAGS = "-C codegen-units=1 -C embed-bitcode=yes -C lto=fat -C linker=clang -C link-arg=-fuse-ld=lld";
     #-Cpanic=abort";
@@ -23,8 +23,11 @@ in
 
 
     buildFeatures = args.buildFeatures ++ lib.optional withSIMD [ "simd-accel" ];
-    nativeBuildInputs = args.nativeBuildInputs ++ [ (with pkgs.llvmPackages_latest; [
-       clang
-       lld])  ];
-    });
+    nativeBuildInputs = args.nativeBuildInputs ++ [
+      (with pkgs.llvmPackages_latest; [
+        clang
+        lld
+      ])
+    ];
+  });
 }
