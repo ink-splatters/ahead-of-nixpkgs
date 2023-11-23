@@ -41,9 +41,10 @@
         formatter = pkgs.nixpkgs-fmt;
         packages.default = pkgs.buildEnv {
           name = "nixpkgs-edge";
-          paths = [
-            (pkgs.callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; })
-            (pkgs.callPackage ./pkgs/micromamba { })
+          paths = with pkgs; [
+            (callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; })
+            (callPackage ./pkgs/micromamba { })
+            (callPackage ./pkgs/tectonic { })
           ];
         };
       }
