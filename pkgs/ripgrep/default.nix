@@ -29,5 +29,10 @@ pkgs.ripgrep.override {
         lld
       ])
     ];
+    preFixup = ''
+      installManPage $releaseDir/build/ripgrep-*/out/rg.1
+      installShellCompletion $releaseDir/build/ripgrep-*/out/rg.{bash,fish}
+    '';
+
   });
 }
