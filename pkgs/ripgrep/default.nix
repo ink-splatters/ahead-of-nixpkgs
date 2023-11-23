@@ -29,10 +29,14 @@ pkgs.ripgrep.override {
         lld
       ])
     ];
+
+    # dirty fix to emulate old ripgrep behavior where complete/_rg was pre-generated
     preFixup = ''
       installManPage $releaseDir/build/ripgrep-*/out/rg.1
       installShellCompletion $releaseDir/build/ripgrep-*/out/rg.{bash,fish}
+      mkdir -p complete
+      $releaseDir/rg --generate complete-zsh > complete/_rg
+      installShellCompletion --zsh complete/_rg
     '';
-
   });
 }
