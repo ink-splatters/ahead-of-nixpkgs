@@ -45,6 +45,7 @@
             (callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; })
             (callPackage ./pkgs/micromamba { })
             (callPackage ./pkgs/tectonic { })
+            (callPackage ./pkgs/opam { })
           ];
         };
       }
