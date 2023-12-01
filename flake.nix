@@ -45,7 +45,6 @@
           paths = with pkgs; [
             (callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; pkgs = pkgs'; })
             (callPackage ./pkgs/micromamba { })
-            (callPackage ./pkgs/tectonic { pkgs = pkgs'; })
             (callPackage ./pkgs/opam { })
           ];
         };

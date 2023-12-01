@@ -18,8 +18,9 @@ repos:
       hooks:
           - id: nixpkgs-fmt
             name: nixpkgs-fmt
-            description: Format nix code with nixpkgs-fmt.
-            entry: nix fmt --accept-flake-config
-            language: rust
+            entry: .pre-commit-nixpkgs-fmt
+            language: script
+#            types:
+#                - bash
+            pass_filenames: true
             files: \.nix$
-            minimum_pre_commit_version: 1.18.1
