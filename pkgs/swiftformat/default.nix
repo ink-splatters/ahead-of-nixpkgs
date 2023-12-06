@@ -3,21 +3,20 @@
   stdenv,
 }:
 let 
+    version = "0.52.11";
     src = builtins.fetchTree {
       shallow = true;
       type = "git";
+      url="https://github.com/nicklockwood/SwiftFormat/archive/{treeHash}.tar.gz
       url="https://github.com/nicklockwood/SwiftFormat";
-      owner = "nicklockwood";
-      repo = "SwiftFormat";
       sha256 = "1gqxpymbhpmap0i2blg9akarlql4mkzv45l4i212gsxcs991b939";
     };
-
 in 
 pkgs.swiftformat.overrideAttrs (oldAttrs: {
-    # inherit stdenv;
     src = src // {
-      ref = oldAttrs.${version};
+      ref = "${oldAttrs.version}";
     };
+
     preConfigure=null;
 
     nativeBuildInputs = with pkgs;[
