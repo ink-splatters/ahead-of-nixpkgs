@@ -20,32 +20,31 @@
   outputs = { self, nixpkgs, flake-utils, fenix }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = import nixpkgs { inherit system; };
-        pkgs' = import nixpkgs {
+        pkgs = import nixpkgs {
           inherit system;
-
-          overlays = [
-            (final: prev: {
-              rustPlatform =
-                let
-                  toolchain = fenix.packages.${system}.minimal.toolchain;
-                in
-                (prev.makeRustPlatform {
-                  cargo = toolchain;
-                  rustc = toolchain;
-                });
-            })
-          ];
+          # overlays = [
+          #   (final: prev: {
+          #     rustPlatform =
+          #       let
+          #         toolchain = fenix.packages.${system}.minimal.toolchain;
+          #       in
+          #       (prev.makeRustPlatform {
+          #         cargo = toolchain;
+          #         rustc = toolchain;
+          #       });
+          #   })
+          # ];
         };
       in
       {
-        formatter = pkgs.nixpkgs-fmt;
+        # formatter = pkgs.nixpkgs-fmt;
         packages.default = pkgs.buildEnv {
           name = "nixpkgs-edge";
           paths = with pkgs; [
-            (callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; pkgs = pkgs'; })
-            (callPackage ./pkgs/micromamba { })
-            (callPackage ./pkgs/opam { })
+            # (callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true;  })
+            # (callPackage ./pkgs/micromamba { })
+            # (callPackage ./pkgs/opam { })
+            (callPackage ./pkgs/swiftformat{ })
           ];
         };
       }
