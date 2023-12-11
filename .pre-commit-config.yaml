@@ -14,13 +14,3 @@ repos:
       rev: 0.7.17
       hooks:
           - id: mdformat
-    - repo: local
-      hooks:
-          - id: nixpkgs-fmt
-            name: nixpkgs-fmt
-            entry: .pre-commit-nixpkgs-fmt
-            language: script
-#            types:
-#                - bash
-            pass_filenames: true
-            files: \.nix$
