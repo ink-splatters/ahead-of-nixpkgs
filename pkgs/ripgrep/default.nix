@@ -4,15 +4,15 @@
 , withSIMD
 }:
 let
-  version = "2023-11-21+master.a2907db2de20fd33b0bf02d9bd1375da06218865";
+  version = "2024-01-05+master.6c2a550e";
   src = pkgs.fetchFromGitHub {
     owner = "BurntSushi";
     repo = "ripgrep";
-    rev = "a2907db2de20fd33b0bf02d9bd1375da06218865";
-    hash = "sha256-KUS0azB04/TTNU754Ot+Gxj1SJQjqcT0lJCfiV3yAM0=";
+    rev = "6c2a550e1ed190351707dbcb28d5085a89ac0710";
+    hash = "sha256-mUIZucvmO+DkoaSisW31JiX5g5vyYevKQGIq0Ymy3AU=";
   };
 
-  cargoHash = "sha256-VED2HuqX7/BHdUtaraQ41zkhm/dxGNVmKYmaiB8VVX8=";
+  cargoHash = "sha256-ATRtC1HUpvHId5NyMKeXWdmfM1STRB83+PioRPRC12Q=";
 in
 pkgs.ripgrep.override {
   rustPlatform.buildRustPackage = args: pkgs.rustPlatform.buildRustPackage (args // {

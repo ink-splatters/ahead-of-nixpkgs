@@ -10,8 +10,6 @@ _Temporary solution_: packages get removed from this repo when their nixpkgs ver
 
 ## Installation
 
-using `nix profile`:
-
 ```shell
 nix profile install github:ink-splatters/edge-sharper --accept-flake-config
 ```
@@ -20,7 +18,7 @@ nix profile install github:ink-splatters/edge-sharper --accept-flake-config
 
 name | nixpkgs version |---|upstream version |mods
 :---: | :---: | :---:  | :---:  | :---:
-__ripgrep__|[13.0.0](https://github.com/BurntSushi/ripgrep/commit/af6b6c543b224d348a8876f0c06245d9ea7929c5)|⬆️|[2023-11-21+master.a2907db2](https://github.com/BurntSushi/ripgrep/commit/a2907db2de20fd33b0bf02d9bd1375da06218865)| `--withSIMD --withPCRE2`
+__ripgrep__|[14.0.3](https://github.com/BurntSushi/ripgrep/commit/67ad9917ad40d23df054b87a38532b06f85205dd)|⬆️|[2024-01-05+master.6c2a550e](https://github.com/BurntSushi/ripgrep/commit/6c2a550e1ed190351707dbcb28d5085a89ac0710)| `--withSIMD --withPCRE2`
 
 # License
 
