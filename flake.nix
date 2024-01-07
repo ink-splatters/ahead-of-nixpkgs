@@ -13,8 +13,6 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    flake-utils.url = "github:numtide/flake-utils";
   };
 
   outputs = { self, nixpkgs, flake-utils, fenix }:
@@ -42,6 +40,7 @@
         packages.default = pkgs.buildEnv {
           name = "nixpkgs-edge";
           paths = with pkgs; [
+            (callPackage ./pkgs/micromamba { })
             (callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; })
           ];
         };
