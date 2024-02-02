@@ -39,11 +39,20 @@
         formatter = pkgs.nixpkgs-fmt;
         packages.default = pkgs.buildEnv {
           name = "nixpkgs-edge";
-          paths = with pkgs; [
+          paths = with pkgs;[
             (callPackage ./pkgs/micromamba { })
             # (callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; })
           ];
         };
+        # devShells.default = mkShell {
+
+        #   nativeBuildInputs = let:
+
+        #     (callPackage ./pkgs/micromamba
+
+
+
+        # };
       }
     );
 }
