@@ -1,22 +1,17 @@
 { pkgs
 , fetchFromGitHub
-, ninja
 }:
 
-let
+with pkgs; micromamba.overrideAttrs (oldAttrs: rec {
   version = "1.5.6";
-in
-pkgs.micromamba.overrideAttrs (oldAttrs: {
-  inherit version;
-
-  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ ninja ];
+  # CFLAGS = "-O3";
+  # CXXFLAGS = "-O3";
 
   src = fetchFromGitHub {
     inherit (oldAttrs.src) owner repo;
-    rev = "micromamba-" + version;
+    rev = "8c739ea7931aeca0a88a187a66753457aee8d078";
     hash = "sha256-eeOZoMtpLjfH5fya9qpLKRlAeATyv+fEv9HwHKjZlzg=";
   };
 
-  enableParallelBuilding = true;
-
+  # nativeBuildInputs =  oldAttrs.nativeBuildInputs ++  [ ninja ];
 })
