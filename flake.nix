@@ -9,30 +9,30 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
 
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # fenix = {
+    #   url = "github:nix-community/fenix";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
-  outputs = { self, nixpkgs, flake-utils, fenix }:
+  outputs = { self, nixpkgs, flake-utils, }: # fenix }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
           inherit system;
 
-          overlays = [
-            (final: prev: {
-              rustPlatform =
-                let
-                  toolchain = fenix.packages.${system}.minimal.toolchain;
-                in
-                (prev.makeRustPlatform {
-                  cargo = toolchain;
-                  rustc = toolchain;
-                });
-            })
-          ];
+          # overlays = [
+          #   (final: prev: {
+          #     rustPlatform =
+          #       let
+          #         toolchain = fenix.packages.${system}.minimal.toolchain;
+          #       in
+          #       (prev.makeRustPlatform {
+          #         cargo = toolchain;
+          #         rustc = toolchain;
+          #       });
+          #   })
+          # ];
         };
       in
       {
@@ -41,7 +41,7 @@
           name = "nixpkgs-edge";
           paths = with pkgs; [
             (callPackage ./pkgs/micromamba { })
-            (callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; })
+            # (callPackage ./pkgs/ripgrep { withPCRE2 = true; withSIMD = true; })
           ];
         };
       }
