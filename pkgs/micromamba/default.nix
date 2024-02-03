@@ -1,11 +1,13 @@
-{ pkgs
-, fetchFromGitHub
-}:
-
+{ pkgs, lib, system, ... }:
+let
+  mcpu = if "${system}" == "aarch64-darwin" then "-mcpu=apple-m1" else "";
+in
 with pkgs; micromamba.overrideAttrs (oldAttrs: rec {
   version = "1.5.6";
-  # CFLAGS = "-O3";
-  # CXXFLAGS = "-O3";
+  CFLAGS = "-O3 ${mcpu}";
+  CXXFLAGS = "${CFLAGS}";
+  LDFALGS = "${mcpu} -fuse-ld=lld";
+
 
   src = fetchFromGitHub {
     inherit (oldAttrs.src) owner repo;
@@ -13,5 +15,5 @@ with pkgs; micromamba.overrideAttrs (oldAttrs: rec {
     hash = "sha256-eeOZoMtpLjfH5fya9qpLKRlAeATyv+fEv9HwHKjZlzg=";
   };
 
-  # nativeBuildInputs =  oldAttrs.nativeBuildInputs ++  [ ninja ];
+  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ ninja lld ];
 })
