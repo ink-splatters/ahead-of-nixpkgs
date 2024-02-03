@@ -13,10 +13,15 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        micromamba' = (pkgs.callPackage ./pkgs/micromamba { });
       in
-      {
-        formatter = pkgs.nixpkgs-fmt;
-        packages.default = micromamba';
+      with pkgs; {
+        formatter = nixpkgs-fmt;
+
+        packages.default = buildEnv {
+          name = "nixpkgs-edge";
+          paths = [
+            (callPackage ./pkgs/micromamba { })
+          ];
+        };
       });
 }
