@@ -1,6 +1,6 @@
 { pkgs, lib, system, ... }:
 let
-  mcpu = if "${system}" == "aarch64-darwin" then "-mcpu=apple-m1" else "";
+  mcpu = lib.optionalString ("${system}" == "aarch64-darwin") "-mcpu=apple-m1";
 in
 with pkgs; micromamba.overrideAttrs (oldAttrs: rec {
   version = "1.5.6";

@@ -34,6 +34,23 @@
             statix.enable = true;
           };
 
+          settings.markdownlint.config = {
+            #MD013/line-length : Line length : https://github.com/DavidAnson/markdownlint/blob/v0.33.0/doc/md013.md
+            "MD013" = {
+              #Include tables
+              "tables" = false;
+            };
+          };
+
+
+          # config.markdownlint = ".markdownlint.yaml";
+          #   # MD013 = {
+          #   #   tables = true;
+          #   # };
+
+          # };
+
+
           tools = pkgs;
         };
 
