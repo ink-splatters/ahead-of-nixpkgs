@@ -11,7 +11,7 @@ _Temporary solution_: packages get removed from this repo when their nixpkgs ver
 ## Installation
 
 ```shell
-nix profile install github:ink-splatters/edge-sharper --accept-flake-config
+nix profile install github:ink-splatters/edge-sharper --accept-flake-config --impure
 ```
 
 ## Packages
