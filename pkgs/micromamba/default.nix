@@ -2,7 +2,7 @@
 let
   mcpu = if "${system}" == "aarch64-darwin" then "-mcpu=apple-m1" else "";
 in
-with pkgs; (micromamba.overrideAttrs (oldAttrs: rec {
+with pkgs; micromamba.overrideAttrs (oldAttrs: rec {
   version = "1.5.6";
   CFLAGS = "-O3 ${mcpu}";
   CXXFLAGS = "${CFLAGS}";
@@ -16,6 +16,4 @@ with pkgs; (micromamba.overrideAttrs (oldAttrs: rec {
   };
 
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ ninja lld ];
-})).override {
-  stdenv = llvmPackages.stdenv;
-}
+})

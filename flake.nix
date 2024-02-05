@@ -20,11 +20,7 @@
   outputs = { self, nixpkgs, flake-utils, pre-commit-hooks, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
-        # we need impurity as some tools currently are broken
-        # if sandboxed (e.g.: /usr/bin/sw_vers cannot be accessed)
-        pkgs = import <nixpkgs> {
-          inherit system;
-        };
+        pkgs = nixpkgs.legacyPackages.${system};
       in
       with pkgs; {
         checks.pre-commit-check = pre-commit-hooks.lib.${system}.run {
