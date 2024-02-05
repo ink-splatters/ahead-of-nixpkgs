@@ -42,15 +42,6 @@
             };
           };
 
-
-          # config.markdownlint = ".markdownlint.yaml";
-          #   # MD013 = {
-          #   #   tables = true;
-          #   # };
-
-          # };
-
-
           tools = pkgs;
         };
 

@@ -8,7 +8,6 @@ with pkgs; micromamba.overrideAttrs (oldAttrs: rec {
   CXXFLAGS = "${CFLAGS}";
   LDFALGS = "${mcpu} -fuse-ld=lld";
 
-
   src = fetchFromGitHub {
     inherit (oldAttrs.src) owner repo;
     rev = "8c739ea7931aeca0a88a187a66753457aee8d078";
