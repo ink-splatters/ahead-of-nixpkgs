@@ -54,9 +54,9 @@
         formatter = nixfmt;
 
         devShells.install-hooks =
-          nixpkgs.legacyPackages.${system}.mkShell.override {
-            stdenv = pkgs.stdenvNoCC;
-          } { inherit (self.checks.${system}.pre-commit-check) shellHook; };
+          mkShell.override { stdenv = pkgs.stdenvNoCC; } {
+            inherit (self.checks.${system}.pre-commit-check) shellHook;
+          };
 
         packages.default = buildEnv {
           name = "nixpkgs-edge";
