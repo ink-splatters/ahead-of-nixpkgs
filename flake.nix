@@ -3,10 +3,10 @@
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
-    systems.url= "github:nix-systems/default";
+    systems.url = "github:nix-systems/default";
     flake-utils = {
-	url = "github:numtide/flake-utils";
-	inputs.systems.follows="systems";
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
     };
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
@@ -19,21 +19,16 @@
   };
 
   nixConfig = {
-    extra-substituters = "https://cachix.cachix.org https://aarch64-darwin.cachix.org ";
-    extra-trusted-public-keys = "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= aarch64-darwin.cachix.org-1:mEz8A1jcJveehs/ZbZUEjXZ65Aukk9bg2kmb0zL9XDA=";
+    extra-substituters =
+      "https://cachix.cachix.org https://aarch64-darwin.cachix.org ";
+    extra-trusted-public-keys =
+      "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= aarch64-darwin.cachix.org-1:mEz8A1jcJveehs/ZbZUEjXZ65Aukk9bg2kmb0zL9XDA=";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-    pre-commit-hooks,
-    ...
-  }:
-    flake-utils.lib.eachDefaultSystem (system: let
-      pkgs = nixpkgs.legacyPackages.${system};
-    in
-      with pkgs; {
+  outputs = { self, nixpkgs, flake-utils, pre-commit-hooks, ... }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let pkgs = nixpkgs.legacyPackages.${system};
+      in with pkgs; {
         checks.pre-commit-check = pre-commit-hooks.lib.${system}.run {
           src = ./.;
 
@@ -41,7 +36,7 @@
             deadnix.enable = true;
             markdownlint.enable = true;
             nil.enable = true;
-            alejandra.enable = true;
+            nixfmt.enable = true;
             statix.enable = true;
           };
 
@@ -56,7 +51,7 @@
           tools = pkgs;
         };
 
-        formatter = alejandra;
+        formatter = nixfmt;
 
         devShells.install-hooks = nixpkgs.legacyPackages.${system}.mkShell {
           inherit (self.checks.${system}.pre-commit-check) shellHook;
@@ -64,9 +59,7 @@
 
         packages.default = buildEnv {
           name = "nixpkgs-edge";
-          paths = [
-            (callPackage ./pkgs/micromamba {})
-          ];
+          paths = [ (callPackage ./pkgs/micromamba { }) ];
         };
       });
 }
