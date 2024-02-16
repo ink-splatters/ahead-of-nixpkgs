@@ -2,6 +2,12 @@
   description = "edge-shaper: nixpkgs edge package collection";
 
   inputs = {
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
+    systems.url= "github:nix-systems/default";
+    flake-utils = {
+	url = "github:numtide/flake-utils";
+	inputs.systems.follows="systems";
+    };
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
@@ -13,8 +19,8 @@
   };
 
   nixConfig = {
-    extra-substituters = "https://aarch64-darwin.cachix.org ";
-    extra-trusted-public-keys = "aarch64-darwin.cachix.org-1:mEz8A1jcJveehs/ZbZUEjXZ65Aukk9bg2kmb0zL9XDA=";
+    extra-substituters = "https://cachix.cachix.org https://aarch64-darwin.cachix.org ";
+    extra-trusted-public-keys = "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= aarch64-darwin.cachix.org-1:mEz8A1jcJveehs/ZbZUEjXZ65Aukk9bg2kmb0zL9XDA=";
   };
 
   outputs = {
