@@ -13,7 +13,7 @@
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
-    
+
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
@@ -33,17 +33,15 @@
 
   outputs = { self, nixpkgs, fenix, flake-utils, pre-commit-hooks, ... }:
     flake-utils.lib.eachDefaultSystem (system:
-      let 
+      let
         pkgs = import nixpkgs {
           inherit system;
 
           overlays = [
             (final: prev: {
               rustPlatform =
-                let
-                  toolchain = fenix.packages.${system}.minimal.toolchain;
-                in
-                (prev.makeRustPlatform {
+                let toolchain = fenix.packages.${system}.minimal.toolchain;
+                in (prev.makeRustPlatform {
                   cargo = toolchain;
                   rustc = toolchain;
                 });
@@ -84,10 +82,10 @@
         packages.default = buildEnv {
           name = "nixpkgs-edge";
           paths = [
-             # (callPackage ./pkgs/micromamba { })
-             (callPackage ./pkgs/cykooz/libheif {} )
+            # (callPackage ./pkgs/micromamba { })
+            (callPackage ./pkgs/cykooz/libheif { })
 
-              ];
+          ];
         };
       });
 }
