@@ -27,7 +27,24 @@
 
   outputs = { self, nixpkgs, flake-utils, pre-commit-hooks, ... }:
     flake-utils.lib.eachDefaultSystem (system:
-      let pkgs = nixpkgs.legacyPackages.${system};
+      let 
+        pkgs = import nixpkgs {
+          inherit system;
+
+          overlays = [
+            (final: prev: {
+              rustPlatform =
+                let
+                  toolchain = fenix.packages.${system}.minimal.toolchain;
+                in
+                (prev.makeRustPlatform {
+                  cargo = toolchain;
+                  rustc = toolchain;
+                });
+            })
+          ];
+        };
+
       in with pkgs; {
         checks.pre-commit-check = pre-commit-hooks.lib.${system}.run {
           src = ./.;
@@ -60,7 +77,11 @@
 
         packages.default = buildEnv {
           name = "nixpkgs-edge";
-          paths = [ (callPackage ./pkgs/micromamba { }) ];
+          paths = [
+             # (callPackage ./pkgs/micromamba { })
+             (callPackage ./pkgs/libheic {} )
+
+              ];
         };
       });
 }
