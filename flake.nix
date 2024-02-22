@@ -4,10 +4,16 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     systems.url = "github:nix-systems/default";
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
+    
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
@@ -79,7 +85,7 @@
           name = "nixpkgs-edge";
           paths = [
              # (callPackage ./pkgs/micromamba { })
-             (callPackage ./pkgs/libheic {} )
+             (callPackage ./pkgs/cykooz {} )
 
               ];
         };
