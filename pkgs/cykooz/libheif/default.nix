@@ -1,6 +1,7 @@
-{ fetchFromGitHub, llvmPackages_17, pkgs, ... }:
+{ fetchFromGitHub, stdenv, pkgs, ... }:
 
-(pkgs.libheif.overrideAttrs (_: rec {
+stdenv.mkDerivation rec {
+  pname = "libheif";
   version = "1.17.6";
   src = pkgs.fetchFromGitHub {
     owner = "strukturag";
@@ -9,33 +10,56 @@
     hash = "sha256-pp+PjV/pfExLqzFE61mxliOtVAYOePh1+i1pwZxDLAM=";
   };
 
+  outputs = [ "bin" "out" "dev" "man" ];
+
   cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+    "-DBUILD_SHARED_LIBS=ON"
+    "-DBUILD_TESTING=OFF"
+
     "-DENABLE_PLUGIN_LOADING=OFF"
-    "-DWITH_DAV1D_PLUGIN:BOOL=OFF"
-    "-DWITH_DAV1D_PLUGIN:BOOL=OFF"
-    "-DWITH_AOM_ENCODER:BOOL=OFF"
-    "-DWITH_AOM_DECODER:BOOL=OFF"
-    "-DWITH_WITH_SvtEnc_PLUGIN:BOOL=OFF"
-    "-DWITH_RAV1E_PLUGIN:BOOL=OFF"
-    "-DWITH_JPEG_ENCODER:BOOL=OFF"
-    "-DWITH_JPEG_DECODER:BOOL=OFF"
-    "-DWITH_OpenJPEG_ENCODER:BOOL=OFF"
-    "-DWITH_OpenJPEG_DECODER:BOOL=OFF"
-    "-DWITH_FFMPEG_DECODER" # for HW acceleration: https://github.com/strukturag/libheif/blob/33e00a4ec54e6fffca3febe3054017b1b81a0c49/CMakeLists.txt#L175
-    "-DWITH_LIBSHARPYUV"
-    ""
+    "-DWITH_AOM_DECODER=OFF"
+    "-DWITH_AOM_ENCODER=OFF"
+    "-DWITH_DAV1D=OFF"
+    "-DWITH_LIBDE265=ON"
+    "-DWITH_RAV1E=OFF"
+    "-DWITH_SvtEnc=OFF"
+    "-DWITH_X265=ON"
+    "-DWITH_JPEG_DECODER=OFF"
+    "-DWITH_JPEG_ENCODER=OFF"
+    "-DWITH_UNCOMPRESSED_CODEC=OFF"
+    "-DWITH_KVAZAAR=OFF"
+    "-DWITH_OpenJPEG_DECODER=OFF"
+    "-DWITH_OpenJPEG_ENCODER=OFF"
+    "-DWITH_FFMPEG_DECODER=OFF"
+
+    "-DWITH_REDUCED_VISIBILITY=ON"
+    "-DWITH_DEFLATE_HEADER_COMPRESSION=OFF"
+    "-DWITH_LIBSHARPYUV=ON"
+    "-DWITH_EXAMPLES=OFF"
+    "-DWITH_FUZZERS=OFF"
+
+    # "-DWITH_FFMPEG_DECODER" # for HW acceleration: https://github.com/strukturag/libheif/blob/33e00a4ec54e6fffca3febe3054017b1b81a0c49/CMakeLists.txt#L175
   ];
 
   buildInputs = with pkgs; [
     libcxx
     libcxxabi
+    libde265
+    x265
 
-    # "-DWITH_FFMPEG_DECODER" 
-    avcodec
-    avutil
+  ];
+  naitveBuildInputs = with pkgs; [
+    cmake
+    ninja
+    pkg-config
+    llvmPackages_17.bintools
   ];
 
-})).override {
-  inherit (pkgs.llvmPackages_17) stdenv;
+  CFLAGS = "-mcpu=apple-m1";
+  CXXFLAGS = "${CFLAGS}";
+  LDFLAGS = "-fuse-ld=lld";
+
+  enableParallelBuilding = true;
 
 }

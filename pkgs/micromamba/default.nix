@@ -1,9 +1,8 @@
-{ pkgs, lib, system, ... }:
+{ pkgs, lib, stdenv, system, ... }:
 let
   mcpu = lib.optionalString ("${system}" == "aarch64-darwin") "-mcpu=apple-m1";
 in with pkgs;
 micromamba.overrideAttrs (oldAttrs: rec {
-  inherit (pkgs.llvmPackages_17) stdenv;
   version = "1.5.6";
   CFLAGS = "-O3 ${mcpu}";
   CXXFLAGS = "${CFLAGS}";

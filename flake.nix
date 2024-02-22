@@ -36,7 +36,6 @@
       let
         pkgs = import nixpkgs {
           inherit system;
-
           overlays = [
             (final: prev: {
               rustPlatform =
@@ -47,9 +46,23 @@
                 });
             })
           ];
+
+          config = {
+            permittedInsecurePackages = [ "libav-12.3" ];
+            allowUnsupportedSystem = true;
+          };
         };
 
       in with pkgs; {
+        apps.repl = flake-utils.lib.mkApp {
+          drv = writeShellScriptBin "repl" ''
+            confnix=$(mktemp)
+            echo "builtins.getFlake (toString $(git rev-parse --show-toplevel))" >$confnix
+            trap "rm $confnix" EXIT
+            nix repl $confnix
+          '';
+        };
+
         checks.pre-commit-check = pre-commit-hooks.lib.${system}.run {
           src = ./.;
 
@@ -79,12 +92,14 @@
             inherit (self.checks.${system}.pre-commit-check) shellHook;
           };
 
-        packages.default = buildEnv {
+        packages.default = let inherit (pkgs.llvmPackages_17) stdenv;
+
+        in buildEnv {
           name = "nixpkgs-edge";
           paths = [
             # (callPackage ./pkgs/micromamba { })
+            # (callPackage ./pkgs/cykooz/libav { })
             (callPackage ./pkgs/cykooz/libheif { })
-
           ];
         };
       });
