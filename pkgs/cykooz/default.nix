@@ -1,13 +1,14 @@
 { pkgs,
   callPackage,
   fetchFromGitHub,
+  # micromamba,
   rustPlatform
 }: 
 let 
 
 libheif = (callPackage ./libheif {} );
 in
-rustPlatform.buildPackage rec {
+rustPlatform.buildRustPackage rec {
 
   pname = "cykooz.heif";
   version = "v1.0.0";

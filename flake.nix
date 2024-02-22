@@ -85,7 +85,7 @@
           name = "nixpkgs-edge";
           paths = [
              # (callPackage ./pkgs/micromamba { })
-             (callPackage ./pkgs/cykooz {} )
+             (callPackage ./pkgs/cykooz/libheif {} )
 
               ];
         };
