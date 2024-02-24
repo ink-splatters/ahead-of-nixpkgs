@@ -1,17 +1,18 @@
 { pkgs
-, lib
-, withPCRE2
-, withSIMD
+, fetchFromGitHub
+, rustPlatform
+  # withClipboard? false
 }:
-
-pkgs.ripgrep.override {
-  rustPlatform.buildRustPackage = args: pkgs.rustPlatform.buildRustPackage (args // rec {
-
-    version = "1.33.1";
-
+let 
+  version = "1.33.1";
+in
+pkgs.broot.override {
+  rustPlatform.buildRustPackage = args: rustPlatform.buildRustPackage (args : {
+    inherit version;
+    
     src = fetchFromGitHub {
       owner = "Canop";
-      repo = pname;
+      repo = args.name;
       rev = "v${version}";
       hash = "sha256-k8rBf1kSeumtOHixJR9g90q+u5eIL0584fvTK/Qg/FU=";
     };
