@@ -60,7 +60,11 @@
 
         packages.default = buildEnv {
           name = "nixpkgs-edge";
-          paths = [ (callPackage ./pkgs/micromamba { }) ];
+          paths = [ 
+          # (callPackage ./pkgs/micromamba { }) 
+          (callPackage ./pkgs/broot { }) 
+
+          ];
         };
       });
 }
