@@ -2,8 +2,7 @@
 let
   mcpu = lib.optionalString ("${system}" == "aarch64-darwin") "-mcpu=apple-m1";
 in with pkgs;
-micromamba.overrideAttrs (oldAttrs: rec {
-  inherit (pkgs.llvmPackages_17) stdenv;
+(micromamba.overrideAttrs (oldAttrs: rec {
   version = "1.5.6";
   CFLAGS = "-O3 ${mcpu}";
   CXXFLAGS = "${CFLAGS}";
@@ -15,5 +14,7 @@ micromamba.overrideAttrs (oldAttrs: rec {
     hash = "sha256-eeOZoMtpLjfH5fya9qpLKRlAeATyv+fEv9HwHKjZlzg=";
   };
 
-  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ ninja lld ];
-})
+  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ ninja lld_17 ];
+
+  allowParallelBuilding = true;
+})).override { inherit (llvmPackages_17) stdenv; }

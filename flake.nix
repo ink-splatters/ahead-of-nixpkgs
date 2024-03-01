@@ -31,7 +31,7 @@
 
   outputs = { self, nixpkgs, fenix, flake-utils, pre-commit-hooks, ... }:
     flake-utils.lib.eachDefaultSystem (system:
-      let 
+      let
         pkgs = import nixpkgs {
           inherit system;
           config.allowBroken = true;
@@ -68,10 +68,10 @@
 
         packages.default = buildEnv {
           name = "nixpkgs-edge";
-          paths = [ 
-            # (callPackage ./pkgs/micromamba { }) 
+          paths = [
+            (callPackage ./pkgs/micromamba { })
             (callPackage ./pkgs/git-graph { inherit fenix; })
-            ];
+          ];
         };
       });
 }
