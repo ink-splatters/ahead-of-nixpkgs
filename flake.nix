@@ -36,6 +36,7 @@
           inherit system;
           config.allowBroken = true;
         };
+        rustPlatform-2023-06-27 = callPackage ./utils/rustPlatform-2023-06-27 { };
       in with pkgs; {
         checks.pre-commit-check = pre-commit-hooks.lib.${system}.run {
           src = ./.;
@@ -66,12 +67,13 @@
             inherit (self.checks.${system}.pre-commit-check) shellHook;
           };
 
-        packages.default = buildEnv {
+        packages.default = let
+          applyOldRustPlatform = pkg: (pkgs.callPackage ./pkgs/${pkg} { inherit fenix ; inherit rustPlatform-2023-06-27; }) ;
+        in buildEnv {
           name = "nixpkgs-edge";
           paths = [
             (callPackage ./pkgs/micromamba { })
-            (callPackage ./pkgs/git-graph { inherit fenix; })
-          ];
+          ] ++ map applyOldRustPlatform [ "git-graph" ];
         };
       });
 }
