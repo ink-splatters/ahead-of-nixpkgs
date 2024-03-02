@@ -8,12 +8,10 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
     };
-
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs = {
@@ -50,9 +48,9 @@
           config = {
             permittedInsecurePackages = [ "libav-12.3" ];
             allowUnsupportedSystem = true;
+	    allowBroken = true;
           };
         };
-
       in with pkgs; {
         apps.repl = flake-utils.lib.mkApp {
           drv = writeShellScriptBin "repl" ''
@@ -98,7 +96,6 @@
           name = "nixpkgs-edge";
           paths = [
             # (callPackage ./pkgs/micromamba { })
-            # (callPackage ./pkgs/cykooz/libav { })
             (callPackage ./pkgs/cykooz/libheif { })
           ];
         };

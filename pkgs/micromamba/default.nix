@@ -14,5 +14,7 @@ micromamba.overrideAttrs (oldAttrs: rec {
     hash = "sha256-eeOZoMtpLjfH5fya9qpLKRlAeATyv+fEv9HwHKjZlzg=";
   };
 
-  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ ninja lld ];
-})
+  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ ninja lld_17 ];
+
+  allowParallelBuilding = true;
+})).override { inherit (llvmPackages_17) stdenv; }
