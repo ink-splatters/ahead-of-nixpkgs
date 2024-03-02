@@ -18,7 +18,7 @@ in (git-graph.overrideAttrs (oldAttrs: {
   RUSTFLAGS =
     "-C codegen-units=1 -C embed-bitcode=yes -C lto=fat -C linker=clang -C link-arg=-fuse-ld=lld";
 
-  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ lld ];
+  nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ lld_17 ];
   buildInputs = oldAttrs.buildInputs
     ++ [ darwin.apple_sdk.frameworks.Security ];
 
