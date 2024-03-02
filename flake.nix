@@ -37,27 +37,8 @@
           config.allowBroken = true;
         };
       in with pkgs; {
-        checks.pre-commit-check = pre-commit-hooks.lib.${system}.run {
-          src = ./.;
-
-          hooks = {
-            deadnix.enable = true;
-            markdownlint.enable = true;
-            nil.enable = true;
-            nixfmt.enable = true;
-            statix.enable = true;
-          };
-
-          settings.markdownlint.config = {
-            #MD013/line-length : Line length : https://github.com/DavidAnson/markdownlint/blob/v0.33.0/doc/md013.md
-            "MD013" = {
-              #Include tables
-              "tables" = false;
-            };
-          };
-
-          tools = pkgs;
-        };
+        checks.pre-commit-check =
+          import ./utils/checks.nix { inherit pkgs pre-commit-hooks system; };
 
         formatter = nixfmt;
 
