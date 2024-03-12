@@ -17,6 +17,6 @@ micromamba.overrideAttrs (oldAttrs: rec {
   nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ ninja lld_17 ];
 
   allowParallelBuilding = true;
-  })
+})
 # overriding stdenv causes sw_vers failing for unknown issues (likely due to sandboxing)
 # })).override { inherit (llvmPackages_17) stdenv; }

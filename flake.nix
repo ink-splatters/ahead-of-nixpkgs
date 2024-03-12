@@ -29,7 +29,7 @@
       "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM= aarch64-darwin.cachix.org-1:mEz8A1jcJveehs/ZbZUEjXZ65Aukk9bg2kmb0zL9XDA=";
   };
 
-  outputs = { self, nixpkgs, fenix, flake-utils, pre-commit-hooks, ... }:
+  outputs = { nixpkgs, fenix, flake-utils, pre-commit-hooks, self, ... }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -47,12 +47,16 @@
             inherit (self.checks.${system}.pre-commit-check) shellHook;
           };
 
-        packages.default = buildEnv {
-          name = "nixpkgs-edge";
-          paths = [
-            (callPackage ./pkgs/micromamba { })
-            (callPackage ./pkgs/git-graph { inherit fenix; })
-          ];
+        packages = rec {
+          micromamba = (callPackage ./pkgs/micromamba { });
+          git-graph = (callPackage ./pkgs/git-graph { inherit fenix; });
+
+          default = buildEnv {
+
+            name = "nixpkgs-edge";
+            paths = [ micromamba git-graph ];
+          };
         };
+
       });
 }
