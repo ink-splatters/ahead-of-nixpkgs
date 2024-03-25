@@ -4,13 +4,14 @@ pre-commit-hooks.lib.${system}.run {
 
   hooks = {
     deadnix.enable = true;
-    markdownlint.enable = true;
+    markdownlint = {
+      enable = true;
+      settings.config = { MD013.tables = false; };
+    };
     nil.enable = true;
     nixfmt.enable = true;
     statix.enable = true;
   };
-
-  settings.markdownlint.config = { MD013.tables = false; };
 
   tools = pkgs;
 }

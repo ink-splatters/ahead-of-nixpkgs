@@ -42,17 +42,17 @@
 
         formatter = nixfmt;
 
-        devShells.install-hooks =
-          mkShell.override { stdenv = pkgs.stdenvNoCC; } {
+        devShells = {
+          install-hooks = mkShell.override { stdenv = pkgs.stdenvNoCC; } {
             inherit (self.checks.${system}.pre-commit-check) shellHook;
           };
+        };
 
-        packages = rec {
-          micromamba = (callPackage ./pkgs/micromamba { });
-          git-graph = (callPackage ./pkgs/git-graph { inherit fenix; });
+        packages = {
+          micromamba = callPackage ./pkgs/micromamba { };
+          git-graph = callPackage ./pkgs/git-graph { inherit fenix; };
 
           default = buildEnv {
-
             name = "nixpkgs-edge";
             paths = [ micromamba git-graph ];
           };
