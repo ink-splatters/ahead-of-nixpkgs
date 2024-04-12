@@ -6,7 +6,7 @@ pre-commit-hooks.lib.${system}.run {
     deadnix.enable = true;
     markdownlint = {
       enable = true;
-      settings.config = { MD013.tables = false; };
+      settings.configuration = { MD013.tables = false; };
     };
     nil.enable = true;
     nixfmt.enable = true;

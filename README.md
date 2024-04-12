@@ -25,7 +25,6 @@ nix profile install github:ink-splatters/edge-sharper --accept-flake-config
 name | nixpkgs version |---|upstream version |mods
 :---: | :---: | :---:  | :---:  | :---:
 __micromamba__|[1.5.4](https://github.com/mamba-org/mamba/commit/5ce083f6cb4fb8f9a466a665954fa941f0cbb4f3)|⬆️|[1.5.8](https://github.com/mamba-org/mamba/commit/4f269258b4237a342da3e9891045cdd51debb27c)| -
-__git-graph__|[0.5.3](https://github.com/mamba-org/mamba/commit/9bd54eb0aed6f108364bce9ad0bdff12077038fc)| - | - | fixed broken build
 
 ## License
 
