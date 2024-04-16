@@ -40,12 +40,12 @@
           };
         };
 
-        packages = {
+        packages = rec {
           micromamba = callPackage ./pkgs/micromamba { };
 
           default = buildEnv {
             name = "nixpkgs-edge";
-            paths = [ micromamba ];
+            paths = [ packages.micromamba' ];
           };
         };
 
